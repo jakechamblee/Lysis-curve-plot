@@ -72,6 +72,7 @@ def lysis_curve(csv, chemical_addition=False, png=False, title=False):
                 'yanchor': 'top'})
 
     if png:
+        csv_name: str = csv[:-4]
         # saves the graph as a png in the current directory
         return fig.write_image(f"{csv_name}.png")
     else:
