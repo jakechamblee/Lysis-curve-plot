@@ -1,4 +1,4 @@
-def lysis_curve(csv, chemical_addition=False, png=False, title=False):
+def lysis_curve(csv, chemical_addition=False, png=False, title=False, related=False):
     '''
     **Given:** CSV, passed as the name of the file in the present directory
     **Returns:** Lysis curve line graph
@@ -18,18 +18,46 @@ def lysis_curve(csv, chemical_addition=False, png=False, title=False):
 
     # **Improvement** Add the ability for the user to input when columns are related. For instance, cols 2 and 3 are
     # related, thus they would use the same color, but one should be a solid line and the other a dashed line
+    # Idea: user enters in numbers telling which of the columns are related (in a while loop until they enter 'exit'?)
+    # Then the function takes those column pairs and makes their colors nearly the same, while making their lines
+    # either solid (by default), 'dash', 'dot', or 'dashdot' (those are all 4 line options)
+    # Ideally a third or fourth line option in the case of triple or quadruple relations
 
     # Creates the plot
     fig = go.Figure()
-    # Adds each column to the plot except the first (which is assumed to be the x-axis/time data)
-    for i, col in enumerate(columns[1:]):
-        fig.add_trace(go.Scatter(
-            x=data[columns[0]],
-            y=data[col],
-            name=col,
-            line=dict(color=colors[i])
-        )
-        )
+
+    if related:
+        num_groups = input("Enter the number of related groups (if cols 1/2, 3/4, and 5/6 are related, enter 3): ")
+        # loop here over related_cols, append to a list of pairs
+        # for i, _ in enumerate(num_groups):
+        pairs = []
+        for i in range(int(num_groups)):
+            related_cols = input("Enter a related column group with each column separated by a comma (ex: 1,2): ")
+            pairs.append(related_cols)
+
+        for i, col in enumerate():
+            # needs to loop through and add the pairs as the same (or nearly the same) colors,
+            # but with different line markers
+            fig.add_trace(go.Scatter(
+                x=data[columns[0]],
+                y=data[col],
+                name=col,
+                line=dict(color=)
+            )
+            )
+    else:
+        # Adds each column to the plot except the first (which is assumed to be the x-axis/time data)
+        for i, col in enumerate(columns[1:]):
+            fig.add_trace(go.Scatter(
+                x=data[columns[0]],
+                y=data[col],
+                name=col,
+                line=dict(color=colors[i])
+                                    )
+                         )
+    fig.update_yaxes(title_text='OD550 (log)', type='log', nticks=2, ticks='inside', tickmode='linear', showgrid=False)
+    fig.update_xaxes(title_text='Time (min)')
+
     # Adds annotations to the graph based on the user's input data
     # (i.e. what chemical they used, and when it was added)
     if chemical_addition:
@@ -46,9 +74,6 @@ def lysis_curve(csv, chemical_addition=False, png=False, title=False):
                             chemical_addition_timepoints]
 
         fig.update_layout(annotations=chem_annotations)
-
-    fig.update_yaxes(title_text='OD550 (log)', type='log', nticks=2, ticks='inside', tickmode='linear', showgrid=False)
-    fig.update_xaxes(title_text='Time (min)')
 
     # Gives user the option to enter a custom graph title. By default, uses the filename
     if title:
