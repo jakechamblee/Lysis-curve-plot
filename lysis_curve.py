@@ -1,4 +1,4 @@
-def lysis_curve(csv, chemical_addition=False, png=False, title=False, related=False):
+def lysis_curve(csv, chemical_addition=False, png=False, title=False, group=False):
     '''
     **Given:** CSV, passed as the name of the file in the present directory
     **Returns:** Lysis curve line graph
@@ -16,35 +16,37 @@ def lysis_curve(csv, chemical_addition=False, png=False, title=False, related=Fa
     # Curated colors to use. Picked for decent contrast
     colors = ['black', 'pink', 'cornflowerblue', 'grey', 'blue', 'crimson', 'darkgreen', 'lightseagreen', 'navy']
 
-    # **Improvement** Add the ability for the user to input when columns are related. For instance, cols 2 and 3 are
-    # related, thus they would use the same color, but one should be a solid line and the other a dashed line
-    # Idea: user enters in numbers telling which of the columns are related (in a while loop until they enter 'exit'?)
-    # Then the function takes those column pairs and makes their colors nearly the same, while making their lines
-    # either solid (by default), 'dash', 'dot', or 'dashdot' (those are all 4 line options)
-    # Ideally a third or fourth line option in the case of triple or quadruple relations
-
     # Creates the plot
     fig = go.Figure()
 
-    if related:
-        num_groups = input("Enter the number of related groups (if cols 1/2, 3/4, and 5/6 are related, enter 3): ")
-        # loop here over related_cols, append to a list of pairs
-        # for i, _ in enumerate(num_groups):
-        pairs = []
+    # Improvement: If the user uses the related argument, any groups they do not mark as related will not be plotted
+    # This should be fixed to be more intuitive. If they mark 1,2 and 3,4 as related,
+    # then column 5 which is not related to anything else should still be plotted.
+    if group:
+        num_groups = input('Enter the number of related groups (if cols 1/2, 3/4, and 5/6 are related, enter 3): ')
+        groups = []
         for i in range(int(num_groups)):
-            related_cols = input("Enter a related column group with each column separated by a comma (ex: 1,2): ")
-            pairs.append(related_cols)
+            related_cols = input('''Enter a related column group with each column separated by a comma 
+                                 (ex: 1,2,3 if 1/2/3 are related): ''')
+            # splits submitted str on comma and appends each group as a list of columns.
+            groups.append(related_cols.split(','))
 
-        for i, col in enumerate():
-            # needs to loop through and add the pairs as the same (or nearly the same) colors,
-            # but with different line markers
-            fig.add_trace(go.Scatter(
-                x=data[columns[0]],
-                y=data[col],
-                name=col,
-                line=dict(color=)
-            )
-            )
+        # need to check if there are columns that are not in the groups, and still plot those.
+        import plotly.colors
+        colors: list = plotly.colors.DEFAULT_PLOTLY_COLORS
+        for i, grp in enumerate(groups):
+            group_color = colors[i]
+            for k, col in enumerate(grp):
+                markers = ['solid', 'dash', 'dashdot', 'dot']
+                fig.add_trace(go.Scatter(
+                             x=data[columns[0]],
+                             y=data[columns[int(col)]],
+                             name=columns[int(col)],
+                             line={'color': group_color,
+                                   'width': 3,
+                                   'dash': markers[k]}
+                             )
+                             )
     else:
         # Adds each column to the plot except the first (which is assumed to be the x-axis/time data)
         for i, col in enumerate(columns[1:]):
@@ -61,13 +63,13 @@ def lysis_curve(csv, chemical_addition=False, png=False, title=False, related=Fa
     # Adds annotations to the graph based on the user's input data
     # (i.e. what chemical they used, and when it was added)
     if chemical_addition:
-        num_timepoints = int(
+        num_timepoints: int = int(
             input('''Enter the number of timepoints in which addition of a chemical occurred 
                     (Ex: if you added DNP to any samples at 10 min and 20 min, enter 2): '''))
         chemical_addition_timepoints = [
             input('Enter your timepoints (Ex: if you added DNP at 40 min and 50 min, enter 40 then 50): ') for i in
             range(num_timepoints)]
-        chemical_name = input('Enter the chemical added (Ex: if DNP added enter DNP): ')
+        chemical_name: str = input('Enter the chemical added (Ex: if DNP added enter DNP): ')
 
         # creates list of dictionaries for update_layout() detailing where on the x-axis to place the annotations
         chem_annotations = [dict(x=i, y=0.3, text=chemical_name, showarrow=True, arrowhead=4, ax=0, ay=-40) for i in
