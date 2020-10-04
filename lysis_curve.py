@@ -32,7 +32,8 @@ def lysis_curve(csv, annotate=False, png=False, title=False, group=False):
                   'rgb(227, 119, 194)',  # pink
                   'rgb(127, 127, 127)',
                   'rgb(188, 189, 34)',
-                  'rgb(23, 190, 207)']
+                  'rgb(23, 190, 207)',
+                  'rgb(36, 224, 165)']
 
         for i, grp in enumerate(groups):
             group_color = colors[i]
