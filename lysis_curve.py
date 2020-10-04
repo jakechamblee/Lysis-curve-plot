@@ -38,7 +38,7 @@ def lysis_curve(csv, annotate=False, png=False, title=False, group=False):
         for i, grp in enumerate(groups):
             group_color = colors[i]
             for k, col in enumerate(grp):
-                markers = ['solid', 'dash', 'dashdot', 'dot']
+                markers = ['solid', 'dash', 'dot', 'dashdot']
                 fig.add_trace(go.Scatter(
                     x=data[columns[0]],
                     y=data[columns[int(col)]],
