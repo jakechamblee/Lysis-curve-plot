@@ -23,11 +23,11 @@ lysis_curve('yourcsvfile.csv', group=['1', '2|3', '4|5', '6|7', '8|9'])
 ```
 
 #### Generate plot with custom title
-Use the argument title='Your Custom Title Here'
+Use the argument ```title='Your Custom Title Here'```
 By default, the title will be taken from your csv file name - 'yourcsvfile' if 'yourcsvfile.csv'
 
 #### Generate plot with annotations
-Use the argument annotations=True and follow the prompts
+Use the argument ```annotations=True and follow the prompts```
 
 ### Dependencies
 
