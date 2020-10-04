@@ -27,7 +27,7 @@ Use the argument ```title='Your Custom Title Here'```
 By default, the title will be taken from your csv file name - 'yourcsvfile' if 'yourcsvfile.csv'
 
 #### Generate plot with annotations
-Use the argument ```annotations=True and follow the prompts```
+Use the argument ```annotations=True``` and follow the prompts
 
 ### Dependencies
 
