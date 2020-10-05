@@ -14,7 +14,8 @@ def lysis_curve(csv, annotate=False, png=False, title=False, group=False):
     columns = list(data.columns)
 
     # Curated colors to use. Picked for decent contrast
-    colors = ['black', 'pink', 'cornflowerblue', 'grey', 'blue', 'crimson', 'darkgreen', 'lightseagreen', 'navy']
+    colors = ['black', 'hotpink', 'cornflowerblue', 'rgb(188, 189, 34)', 'blue',
+              'crimson', 'darkgreen', 'lightseagreen', 'navy']
 
     # Creates the plot
     fig = go.Figure()
@@ -30,8 +31,8 @@ def lysis_curve(csv, annotate=False, png=False, title=False, group=False):
                   'rgb(44, 160, 44)',    # green
                   'rgb(214, 39, 40)',    # red
                   'rgb(227, 119, 194)',  # pink
-                  'rgb(127, 127, 127)',
-                  'rgb(188, 189, 34)',
+                  'rgb(127, 127, 127)',  # grey
+                  'rgb(188, 189, 34)',   # mustard
                   'rgb(23, 190, 207)',
                   'rgb(36, 224, 165)']
 
