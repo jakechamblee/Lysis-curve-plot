@@ -4,7 +4,7 @@ This function generates automated lysis curves for bacteriophage research via pl
 
 ### Running in Jupyter
 
-First, make sure your x-axis (time) data is your **first (zeroth) column** (this script always plots the first column in the csv file as the x-axis). Next, make sure you save your data in the .csv file format. Finally, navigate to the directory containing your .csv file in Jupyter.
+First, make sure your x-axis (time) data is your **zeroth (first) column** (this script always plots the first column in the csv file as the x-axis). Next, make sure you save your data in the .csv file format. Finally, navigate to the directory containing your .csv file in Jupyter.
 ```python
 import os
 os.chdir('your_path_here')
@@ -17,9 +17,9 @@ lysis_curve('yourcsvfile.csv')
 ```
 
 #### Generate plot with grouping
-This argument is useful if you wish to visually group your data by color. It will automatically give each group you set the same color, while differentiating them by assigning them different markers ('1', or '2|3' or '2|3|6' being examples of groups passed). Pass the argument to groups as a list of strings, with each column in a group separated by | (vertical bars).
+This argument is useful if you wish to visually group your data by color. It will automatically give each group you set the same color, while differentiating them by assigning them different markers ('1', or '2|3' or '2|3|6' being examples of groups passed). Pass the argument to groups as a list of strings, with each column in a group separated by vertical bars.
 ```python
-lysis_curve('yourcsvfile.csv', group=['1', '2|3', '4|5', '6|7', '8|9'])
+lysis_curve('yourcsvfile.csv', group=['1', '2|3', '4|5', '6|7|8'])
 ```
 
 #### Generate plot with custom title
