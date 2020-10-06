@@ -9,7 +9,7 @@ First, make sure your x-axis (time) data is your **zeroth (first) column** (this
 import os
 os.chdir('your_path_here')
 ```
-Next, import the lysis_curve.py file or paste it into your jupyter cell and execute.
+Next, import the lysis_curve.py file or just copy/paste it into a jupyter cell and execute.
 #### Generate basic plot
 This basic plot is good for cases where you do not wish to visually group your data
 ```python
@@ -17,7 +17,7 @@ lysis_curve('yourcsvfile.csv')
 ```
 
 #### Generate plot with grouping
-This argument is useful if you wish to visually group your data by color. It will automatically give each group you set the same color, while differentiating them by assigning them different markers ('1', or '2|3' or '2|3|6' being examples of groups passed). Pass the argument to groups as a list of strings, with each column in a group separated by vertical bars.
+This argument is useful if you wish to visually group your data by color. It will automatically set each line in each group the same color, while differentiating them by assigning them different markers ('1', or '2|3' or '2|3|6' being examples of groups passed). Pass the argument to groups as a list of strings, with each column in a group separated by vertical bars.
 ```python
 lysis_curve('yourcsvfile.csv', group=['1', '2|3', '4|5', '6|7|8'])
 ```
@@ -28,6 +28,9 @@ By default, the title will be taken from your csv file name - thus 'yourcsvfile'
 
 #### Generate plot with annotations
 Use the argument ```annotations=True``` and follow the prompts.
+
+#### Save as .png
+Set the argument ```png=True``` and the function will generate a .png picture of the graph in your current directory.
 
 ### Dependencies
 
