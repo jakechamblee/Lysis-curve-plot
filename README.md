@@ -30,7 +30,11 @@ By default, the title will be taken from your csv file name - thus 'yourcsvfile'
 Use the argument ```annotations=True``` and follow the prompts.
 
 #### Save as .png
-Set the argument ```png=True``` and the function will generate a .png picture of the graph in your current directory.
+Set the argument ```png=True``` and the function will generate a .png file of the graph in your current directory.
+
+#### Save as .svg
+Set the argument ```png=True``` and the function will generate a .svg file of the graph in your current directory.
+Requires Orca
 
 ### Dependencies
 
