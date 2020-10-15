@@ -42,4 +42,4 @@ Requires Orca
 * Pandas ```pip install pandas```
 * Plotly ```pip install plotly```
 * Requests ```pip install requests```
-* Orca (required for .svg output) https://github.com/plotly/orca
+* Orca (required for .svg output) [Install Orca](https://github.com/plotly/orca) (Method 4 is simple on MacOS)
