@@ -37,3 +37,5 @@ Set the argument ```png=True``` and the function will generate a .png picture of
 * Python 3.5+
 * Pandas ```pip install pandas```
 * Plotly ```pip install plotly```
+* Requests ```pip install requests```
+* Orca (required for .svg output) https://github.com/plotly/orca
