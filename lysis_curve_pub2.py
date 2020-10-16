@@ -55,7 +55,7 @@ def lysis_curve(csv,
             group_color = colors[i]
             group_marker = markers[i]
             for k, col in enumerate(grp):
-                #linemarkers = ['solid', 'dash', 'dot', 'dashdot']
+                linemarkers = ['solid', 'dash', 'dot', 'dashdot']
                 marker_variant = ['', '-open', '-open-dot']
                 fig.add_trace(go.Scatter(
                     x=data[columns[0]],
@@ -63,13 +63,13 @@ def lysis_curve(csv,
                     name=columns[int(col)],
                     connectgaps=True,
                     marker_symbol = group_marker + marker_variant[k],
-                    marker_size = 9.5,
+                    marker_size = 12,
                     marker_opacity = 0.9,
                     marker_line_width=2,
                     #opacity=0.25,
                     line={'color': group_color,
                           'width': 0.6,
-                          #'dash': linemarkers[k]
+                          'dash': linemarkers[k]
                           }
                                         )
                             )
@@ -88,8 +88,8 @@ def lysis_curve(csv,
     fig.update_layout(
         yaxis = dict(
         tickmode = 'array',
-        tickvals = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        ticktext = [0.1, '', '', '', '', '', '', '', '', 1.0, '', '', '', '', '', '', '', '', 10]
+        tickvals = [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        ticktext = [0.01, '', '', '', '', '', '', '', '',0.1, '', '', '', '', '', '', '', '', 1.0, '', '', '', '', '', '', '', '', 10]
                     ),
         # font settings for axes and legend
         font_family="Helvetica",
@@ -107,7 +107,7 @@ def lysis_curve(csv,
                      zeroline=False,
                      mirror=True,
                     #nticks=2,
-                    #range=[-2,1]
+                    range=[-2,1]
                     )
     fig.update_xaxes(title_text='Time (min)', 
                      showgrid=False, 
