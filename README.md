@@ -42,4 +42,4 @@ Requires Orca
 * Pandas ```pip install pandas```
 * Plotly ```pip install plotly```
 * Requests ```pip install requests```
-* Orca (required for .svg output) [Install Orca](https://github.com/plotly/orca) 
+* Kaleido ```pip install -U kaleido``` (Kaleido is recommended over Orca according to Plotly)OR Orca (required for .svg output) [Install Orca](https://github.com/plotly/orca) 
