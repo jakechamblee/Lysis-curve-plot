@@ -29,11 +29,16 @@ By default, the title will be taken from your csv file name - thus 'yourcsvfile'
 #### Generate plot with annotations
 Use the argument ```annotations=True``` and follow the prompts.
 
+#### Pass custom colors
+```python
+lysis_curve('yourcsvfile.csv', colors=['red', 'blue', 'blah'])
+```
+
 #### Save as .png
 Set the argument ```png=True``` and the function will generate a .png file of the graph in your current directory.
 
 #### Save as .svg
-Set the argument ```png=True``` and the function will generate a .svg file of the graph in your current directory.
+Set the argument ```svg=True``` and the function will generate a .svg file of the graph in your current directory.
 Requires Orca
 
 ### Dependencies
