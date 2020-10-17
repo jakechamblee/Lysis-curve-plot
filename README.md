@@ -1,4 +1,4 @@
-# lysis_curve.py
+# lysis_curve_pub.py
 
 This function generates automated lysis curves (OD curves) for bacteriophage research via plotly.  
 
@@ -39,7 +39,7 @@ Set the argument ```png=True``` and the function will generate a .png file of th
 
 #### Save as .svg
 Set the argument ```svg=True``` and the function will generate a .svg file of the graph in your current directory.
-Requires Orca
+Requires Kaleido or Orca
 
 ### Dependencies
 
@@ -47,4 +47,4 @@ Requires Orca
 * Pandas ```pip install pandas```
 * Plotly ```pip install plotly```
 * Requests ```pip install requests```
-* Kaleido ```pip install kaleido``` (Kaleido is recommended over Orca according to Plotly)OR Orca (required for .svg output) [Install Orca](https://github.com/plotly/orca) 
+* Kaleido ```pip install kaleido``` (Kaleido is recommended over Orca according to Plotly) OR Orca (required for .svg output) [Install Orca](https://github.com/plotly/orca) 
