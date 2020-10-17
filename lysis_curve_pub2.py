@@ -36,13 +36,13 @@ def lysis_curve(csv,
                'diamond-wide',
                'star']
 
-    colors = ['rgb(31, 119, 180)',  # blue
-              'rgb(255, 127, 14)',  # orange
-              'rgb(44, 160, 44)',  # green
-              'rgb(214, 39, 40)',  # red
+    colors = ['rgb(31, 119, 180)',   # blue
+              'rgb(255, 127, 14)',   # orange
+              'rgb(44, 160, 44)',    # green
+              'rgb(214, 39, 40)',    # red
               'rgb(227, 119, 194)',  # pink
               'rgb(127, 127, 127)',  # grey
-              'rgb(188, 189, 34)',  # mustard
+              'rgb(188, 189, 34)',   # mustard
               'rgb(23, 190, 207)',
               'rgb(36, 224, 165)']
 
@@ -124,10 +124,10 @@ def lysis_curve(csv,
                      linecolor='black',
                      zeroline=False,
                      ticks='inside',
-                     tick0=0,  # starting point for first tick
-                     dtick=20,  # interval for each tick
+                     tick0=0,   # Starting point for first tick
+                     dtick=20,  # Interval for each tick
                      mirror=True,
-                     # sets range of the xaxis +0.1 b/c the graph border was cutting off markers
+                     # Sets range of the x-axis +0.1 b/c the graph border was cutting off markers
                      range=[0, (data[columns[0]].max() + 0.1)],
                      constrain="domain",
                      )
@@ -174,10 +174,10 @@ def lysis_curve(csv,
 
     csv_name: str = csv[:-4]
     if png:
-        # saves the graph as a png in the current directory
+        # Saves the graph as a png in the current directory
         return fig.write_image(f"{csv_name}.png")
     elif svg:
         return fig.write_image(f"{csv_name}.svg", width=square, height=square)
     else:
-        # shows the graph (for jupyter or a web page)
+        # Shows the graph (for jupyter or a web page)
         return fig.show()
