@@ -4,6 +4,7 @@ def lysis_curve(csv,
                 group=False,
                 square=750,
                 legend=True,
+                colors=False,
                 png=False,
                 svg=False):
     '''
@@ -36,7 +37,11 @@ def lysis_curve(csv,
                'diamond-wide',
                'star']
 
-    colors = ['rgb(31, 119, 180)',   # blue
+    if colors:
+        colors = colors
+    else:
+        colors = [
+              'rgb(31, 119, 180)',   # blue
               'rgb(255, 127, 14)',   # orange
               'rgb(44, 160, 44)',    # green
               'rgb(214, 39, 40)',    # red
