@@ -21,7 +21,7 @@ lysis_curve('yourcsvfile.csv')
 ```
 
 #### Generate plot with grouping
-This argument is useful if you wish to visually group your data by color. It will automatically set each line in each group the same color, while differentiating them by assigning them different markers ('1', or '2|3' or '2|3|6' being examples of groups passed). Pass the argument to groups as a list of strings, with each column in a group separated by vertical bars.
+This argument is useful if you wish to visually group your data by color. It will automatically set each line in each group the same color, while differentiating them by assigning them different markers ('1', or '2|3' or '2|3|6' being examples of groups passed). Pass the argument to `group` as a list of strings, with each column in a group separated by vertical bars.
 ```python
 lysis_curve('yourcsvfile.csv', group=['1', '2|3', '4|5', '6|7|8'])
 ```
