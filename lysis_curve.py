@@ -1,4 +1,12 @@
-def lysis_curve(csv, annotate=False, png=False, title=False, group=False):
+def lysis_curve(csv,
+                annotate=False,
+                title=False,
+                group=False,
+                square=750,
+                legend=True,
+                colors=False,
+                png=False,
+                svg=False):
     '''
     **Given:** CSV, passed as the name of the file in the present directory
     **Returns:** Lysis curve line graph
@@ -13,12 +21,25 @@ def lysis_curve(csv, annotate=False, png=False, title=False, group=False):
     # Gets column names as list
     columns = list(data.columns)
 
-    # Curated colors to use. Picked for decent contrast
-    colors = ['black', 'hotpink', 'cornflowerblue', 'rgb(188, 189, 34)', 'blue',
-              'crimson', 'darkgreen', 'lightseagreen', 'navy']
+    # Removes the background color
+    #layout = go.Layout(plot_bgcolor='rgba(0,0,0,0)')
 
     # Creates the plot
     fig = go.Figure()
+
+    if colors:
+        colors = colors
+    else:
+        colors = [
+              'rgb(31, 119, 180)',   # blue
+              'rgb(255, 127, 14)',   # orange
+              'rgb(44, 160, 44)',    # green
+              'rgb(214, 39, 40)',    # red
+              'rgb(227, 119, 194)',  # pink
+              'rgb(127, 127, 127)',  # grey
+              'rgb(188, 189, 34)',   # mustard
+              'rgb(23, 190, 207)',
+              'rgb(36, 224, 165)']
 
     if group:
         # This allows the user to color certain (related) line data the same color, but with different line markers
@@ -26,50 +47,79 @@ def lysis_curve(csv, annotate=False, png=False, title=False, group=False):
         # ex: [ '1', '2|3', '4|5', '6|7', '8|9' ]
         groups = [x.split('|') for x in group]
 
-        colors = ['rgb(31, 119, 180)',   # blue
-                  'rgb(255, 127, 14)',   # orange
-                  'rgb(44, 160, 44)',    # green
-                  'rgb(214, 39, 40)',    # red
-                  'rgb(227, 119, 194)',  # pink
-                  'rgb(127, 127, 127)',  # grey
-                  'rgb(188, 189, 34)',   # mustard
-                  'rgb(23, 190, 207)',
-                  'rgb(36, 224, 165)']
-
         for i, grp in enumerate(groups):
             group_color = colors[i]
             for k, col in enumerate(grp):
-                markers = ['solid', 'dash', 'dot', 'dashdot']
+                linemarkers = ['solid', 'dash', 'dot', 'dashdot']
                 fig.add_trace(go.Scatter(
                     x=data[columns[0]],
                     y=data[columns[int(col)]],
                     name=columns[int(col)],
                     connectgaps=True,
+                    marker_size=7,
                     line={'color': group_color,
                           'width': 3,
-                          'dash': markers[k]
+                          'dash': linemarkers[k]
                           }
-                                        )
-                            )
+                )
+                )
     else:
-        # Adds each column to the plot except the first (which is assumed to be the x-axis/time data)
+        # Adds each column to the plot without grouping
         for i, col in enumerate(columns[1:]):
             fig.add_trace(go.Scatter(
                 x=data[columns[0]],
                 y=data[col],
                 name=col,
                 connectgaps=True,
-                line=dict(color=colors[i])
+                marker_size=7,
+                line={'color': colors[i],
+                      'width': 3,
+                      }
             )
             )
-    fig.update_yaxes(title_text='OD550 (log)', type='log', nticks=2, ticks='inside', tickmode='linear', showgrid=False)
-    fig.update_xaxes(title_text='Time (min)')
+            # Graph layout settings
+    fig.update_layout(
+        yaxis=dict(
+            tickmode='array',
+            tickvals=[0.01, 0.1, 1.0, 10],
+            ticktext=[0.01, 0.1, 1.0, 10]
+                    ),
+        width=1000,
+        height=625,
+        # Font settings for axes and legend
+        font_color="navy",
+        font_size=13.5,
+        # Font settings for graph title
+        title_font_color="navy",
+    )
+    fig.update_yaxes(title_text='OD550 (log)',
+                     type='log',
+                     ticks='inside',
+                     #showgrid=False,
+                     linecolor='black',
+                     zeroline=False,
+                     mirror=True,
+                     range=[-2, 1]
+                     )
+    fig.update_xaxes(title_text='Time (min)',
+                     showgrid=False,
+                     linecolor='black',
+                     zeroline=False,
+                     ticks='inside',
+                     tick0=0,   # Starting point for first tick
+                     dtick=20,  # Interval for each tick
+                     mirror=True,
+                     # Sets range of the x-axis +0.1 b/c the graph border was cutting off markers
+                     range=[0, (data[columns[0]].max() + 0.1)],
+                     constrain="domain",
+                     )
 
     # Adds annotations to the graph based on the user's input data
     # (i.e. what chemical they used, and when it was added)
     if annotate:
         num_annotations: int = int(
-            input('''Enter the number of annotations to add (Ex: if you added DNP to any samples at 10 min and 20 min, enter 2): '''))
+            input(
+                '''Enter the number of annotations to add (Ex: if you added DNP to any samples at 10 min and 20 min, enter 2): '''))
         annotation_timepoints = [
             input('Enter your timepoints (Ex: if you added DNP at 40 min and 50 min, enter 40 then 50): ') for i in
             range(num_annotations)]
@@ -81,14 +131,17 @@ def lysis_curve(csv, annotate=False, png=False, title=False, group=False):
 
         fig.update_layout(annotations=annotations)
 
+    if not legend:
+        fig.update_layout(showlegend=False)
+
     # Gives user the option to enter a custom graph title. By default, uses the filename
     if title:
         fig.update_layout(
             title={
                 'text': f'{title}',
-                'y': 0.9,
-                'x': 0.5,
-                'xanchor': 'center',
+                'y': 0.91,
+                'x': 0.55,
+                'xanchor': 'right',
                 'yanchor': 'top'})
     else:
         # Gets csv filename by indexing all but the last 4 characters, the ".csv" part
@@ -97,14 +150,16 @@ def lysis_curve(csv, annotate=False, png=False, title=False, group=False):
             title={
                 'text': f'{csv_name}',
                 'y': 0.9,
-                'x': 0.5,
-                'xanchor': 'center',
+                'x': 0.55,
+                'xanchor': 'right',
                 'yanchor': 'top'})
 
+    csv_name: str = csv[:-4]
     if png:
-        csv_name: str = csv[:-4]
-        # saves the graph as a png in the current directory
+        # Saves the graph as a png in the current directory
         return fig.write_image(f"{csv_name}.png")
+    elif svg:
+        return fig.write_image(f"{csv_name}.svg", width=square, height=square)
     else:
-        # shows the graph (for jupyter or a web page)
+        # Shows the graph (for jupyter or a web page)
         return fig.show()
