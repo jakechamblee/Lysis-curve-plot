@@ -160,8 +160,7 @@ def lysis_curve(csv,
         # Saves the graph as a png in the current directory
         return fig.write_image(f"{csv_name}.png")
     elif svg:
-        # +75 for width corrects for legend width
-        return fig.write_image(f"{csv_name}.svg", width=square+75, height=square)
+        return fig.write_image(f"{csv_name}.svg")
     else:
         # Shows the graph (for jupyter or a web page)
         return fig.show()
