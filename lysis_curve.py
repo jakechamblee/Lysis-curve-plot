@@ -160,6 +160,7 @@ def lysis_curve(csv,
         # Saves the graph as a png in the current directory
         return fig.write_image(f"{csv_name}.png")
     elif svg:
+        fig.show()
         return fig.write_image(f"{csv_name}.svg")
     else:
         # Shows the graph (for jupyter or a web page)
