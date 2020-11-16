@@ -2,7 +2,7 @@ def lysis_curve(csv,
                 annotate=False,
                 title=False,
                 group=False,
-                square=600,
+                square=630,
                 legend=True,
                 colors=False,
                 png=False,
@@ -84,8 +84,8 @@ def lysis_curve(csv,
             tickvals=[0.01, 0.1, 1.0, 10],
             ticktext=[0.01, 0.1, 1.0, 10]
                     ),
-        width=1000,
-        height=625,
+        width=square+75, # corrects for legend width
+        height=square,
         # Font settings for axes and legend
         font_color="navy",
         font_size=13.5,
@@ -133,6 +133,7 @@ def lysis_curve(csv,
 
     if not legend:
         fig.update_layout(showlegend=False)
+        fig.update_layout(width=square)
 
     # Gives user the option to enter a custom graph title. By default, uses the filename
     if title:
