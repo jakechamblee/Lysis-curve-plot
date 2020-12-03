@@ -1,10 +1,10 @@
 # lysis_curve.py
 
-This function generates automated lysis curves (OD curves) for bacteriophage research via plotly. Preferred for everyday graphing.
+This function generates automated lysis curves (OD curves) for bacteriophage research via plotly.
 
 # lysis_curve_pub.py 
 
-This variant generates automated OD curves with modifications that make them more suitable for publication.
+This variant generates automated OD curves with modifications that may make them more suitable for publication. Dynamic interaction with the plots is buggy due to an issue on Plotly's end.
 
 ### Running in Jupyter
 
