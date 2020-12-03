@@ -6,7 +6,8 @@ def lysis_curve(csv,
                 legend=True,
                 colors=False,
                 png=False,
-                svg=False):
+                svg=False,
+                save=False):
     '''
     **Given:** CSV, passed as the name of the file in the present directory
     **Returns:** Lysis curve line graph
@@ -115,7 +116,7 @@ def lysis_curve(csv,
         title_font_family="Helvetica",
         title_font_color="navy",
     )
-    fig.update_yaxes(title_text='OD550 (log)',
+    fig.update_yaxes(title_text='A550 (log)',
                      type='log',
                      ticks='inside',
                      showgrid=False,
@@ -178,6 +179,17 @@ def lysis_curve(csv,
                 'yanchor': 'top'})
 
     csv_name: str = csv[:-4]
+
+    if save:
+        # Saves three versions:
+        # (1).png w/ legend (2).svg w/ legend (not square) (3).svg without legend (a square graph)
+        fig.write_image(f"{csv_name}.svg")
+        fig.write_image(f"{csv_name}.png")
+        fig.update_layout(showlegend=False)
+        fig.update_layout(width=square)  # b/c by default width is +75 to somewhat correct for legend width
+        fig.write_image(f"{csv_name}_no_legend.svg")
+        return fig.show()
+
     if png:
         # Saves the graph as a png in the current directory
         return fig.write_image(f"{csv_name}.png")
