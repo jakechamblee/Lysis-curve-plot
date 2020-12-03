@@ -159,7 +159,7 @@ def lysis_curve(csv,
     csv_name: str = csv[:-4]
 
     if save:
-        # Saves three version:
+        # Saves three versions:
         # (1).png w/ legend (2).svg w/ legend (not square) (3).svg without legend (a square graph)
         fig.write_image(f"{csv_name}.svg")
         fig.write_image(f"{csv_name}.png")
