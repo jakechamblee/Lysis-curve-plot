@@ -54,4 +54,4 @@ Saves three versions of the graph: (1) a .png version with a legend (2) a .svg v
 * Pandas ```pip install pandas```
 * Plotly ```pip install plotly```
 * Requests ```pip install requests```
-* Kaleido ```pip install kaleido``` (Kaleido is recommended over Orca according to Plotly) OR Orca (required for .svg output) [Install Orca](https://github.com/plotly/orca) 
+* Kaleido ```pip install kaleido``` (Kaleido is recommended over Orca according to Plotly)
