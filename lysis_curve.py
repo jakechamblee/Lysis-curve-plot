@@ -6,7 +6,8 @@ def lysis_curve(csv,
                 legend=True,
                 colors=False,
                 png=False,
-                svg=False):
+                svg=False,
+                save=False):
     '''
     **Given:** CSV, passed as the name of the file in the present directory
     **Returns:** Lysis curve line graph
@@ -22,7 +23,7 @@ def lysis_curve(csv,
     columns = list(data.columns)
 
     # Removes the background color
-    #layout = go.Layout(plot_bgcolor='rgba(0,0,0,0)')
+    # layout = go.Layout(plot_bgcolor='rgba(0,0,0,0)')
 
     # Creates the plot
     fig = go.Figure()
@@ -31,15 +32,15 @@ def lysis_curve(csv,
         colors = colors
     else:
         colors = [
-              'rgb(31, 119, 180)',   # blue
-              'rgb(255, 127, 14)',   # orange
-              'rgb(44, 160, 44)',    # green
-              'rgb(214, 39, 40)',    # red
-              'rgb(227, 119, 194)',  # pink
-              'rgb(127, 127, 127)',  # grey
-              'rgb(188, 189, 34)',   # mustard
-              'rgb(23, 190, 207)',
-              'rgb(36, 224, 165)']
+            'rgb(31, 119, 180)',  # blue
+            'rgb(255, 127, 14)',  # orange
+            'rgb(44, 160, 44)',  # green
+            'rgb(214, 39, 40)',  # red
+            'rgb(227, 119, 194)',  # pink
+            'rgb(127, 127, 127)',  # grey
+            'rgb(188, 189, 34)',  # mustard
+            'rgb(23, 190, 207)',
+            'rgb(36, 224, 165)']
 
     if group:
         # This allows the user to color certain (related) line data the same color, but with different line markers
@@ -83,8 +84,8 @@ def lysis_curve(csv,
             tickmode='array',
             tickvals=[0.01, 0.1, 1.0, 10],
             ticktext=[0.01, 0.1, 1.0, 10]
-                    ),
-        width=square+75, # corrects for legend width
+        ),
+        width=square + 75,  # corrects for legend width
         height=square,
         # Font settings for axes and legend
         font_color="navy",
@@ -92,7 +93,7 @@ def lysis_curve(csv,
         # Font settings for graph title
         title_font_color="navy",
     )
-    fig.update_yaxes(title_text='OD550 (log)',
+    fig.update_yaxes(title_text='A550 (log)',
                      type='log',
                      ticks='inside',
                      showgrid=False,
@@ -102,11 +103,11 @@ def lysis_curve(csv,
                      range=[-2, 1]
                      )
     fig.update_xaxes(title_text='Time (min)',
-                     #showgrid=False,
+                     # showgrid=False,
                      linecolor='black',
                      zeroline=False,
                      ticks='inside',
-                     tick0=0,   # Starting point for first tick
+                     tick0=0,  # Starting point for first tick
                      dtick=20,  # Interval for each tick
                      mirror=True,
                      # Sets range of the x-axis +0.1 b/c the graph border was cutting off markers
@@ -140,7 +141,7 @@ def lysis_curve(csv,
         fig.update_layout(
             title={
                 'text': f'{title}',
-                'y': 0.91,
+                'y': 0.90,
                 'x': 0.55,
                 'xanchor': 'right',
                 'yanchor': 'top'})
@@ -156,8 +157,19 @@ def lysis_curve(csv,
                 'yanchor': 'top'})
 
     csv_name: str = csv[:-4]
+
+    if save:
+        # Saves three version:
+        # (1).png w/ legend (2).svg w/ legend (not square) (3).svg without legend (a square graph)
+        fig.write_image(f"{csv_name}.svg")
+        fig.write_image(f"{csv_name}.png")
+        fig.update_layout(showlegend=False)
+        fig.update_layout(width=square)  # b/c by default width is +75 to somewhat correct for legend width
+        fig.write_image(f"{csv_name}_no_legend.svg")
+        return fig.show()
     if png:
         # Saves the graph as a png in the current directory
+        fig.show()
         return fig.write_image(f"{csv_name}.png")
     elif svg:
         fig.show()
