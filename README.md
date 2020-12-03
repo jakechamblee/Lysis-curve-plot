@@ -45,7 +45,8 @@ Set the argument ```png=True``` and the function will generate a .png file of th
 Set the argument ```svg=True``` and the function will generate a .svg file of the graph in your current directory.
 Requires Kaleido or Orca
 
-### ```save=True```
+### Save .png, .svg and legendless .svg
+```save=True```
 Saves three versions of the graph: (1) a .png version with a legend (2) a .svg version with a legend (3) a .svg version without a legend and square dimensions
 
 ### Dependencies
