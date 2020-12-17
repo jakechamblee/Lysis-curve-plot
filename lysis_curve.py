@@ -143,7 +143,7 @@ def lysis_curve(csv,
                 'text': f'{title}',
                 'y': 0.90,
                 'x': 0.55,
-                'xanchor': 'right',
+                'xanchor': 'center',
                 'yanchor': 'top'})
     else:
         # Gets csv filename by indexing all but the last 4 characters, the ".csv" part
@@ -153,7 +153,7 @@ def lysis_curve(csv,
                 'text': f'{csv_name}',
                 'y': 0.9,
                 'x': 0.55,
-                'xanchor': 'right',
+                'xanchor': 'center',
                 'yanchor': 'top'})
 
     csv_name: str = csv[:-4]
