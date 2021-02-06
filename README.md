@@ -1,8 +1,9 @@
 # lysis_curve.py
 
 This function generates automated lysis curves (OD curves) for bacteriophage research via plotly.
+It can also split a spaghetti lineplot into up to 9 subplots.
 
-# lysis_curve_pub.py 
+# lysis_curve_pub.py
 
 This variant generates automated OD curves with modifications that may make them more suitable for publication. Dynamic interaction with the plots is buggy due to an issue on Plotly's end.
 
@@ -19,9 +20,16 @@ This basic plot is good for cases where you do not wish to visually group your d
 ```python
 lysis_curve('yourcsvfile.csv')
 ```
+#### Generate plot with subplots
+Use the argument ```subplots=True``` to split your data into subplots.
+
 
 #### Generate plot with grouping
-This argument is useful if you wish to visually group your data by color. It will automatically set each line in each group the same color, while differentiating them by assigning them different markers ('1', or '2|3' or '2|3|6' being examples of groups passed). Pass the argument to `group` as a list of strings, with each column in a group separated by vertical bars.
+This argument is useful if you wish to visually group your data by color. 
+It automatically sets each line in each group the same color, 
+but assigns them different markers.
+*Does not work with subplots.*
+Pass the argument to `group` as a list of strings, with each column in a group separated by vertical bars.
 ```python
 lysis_curve('yourcsvfile.csv', group=['1', '2|3', '4|5', '6|7|8'])
 ```
