@@ -2,6 +2,7 @@ def lysis_curve(csv,
                 annotate=False,
                 title=False,
                 group=False,
+                subplots=False,
                 square=630,
                 legend=True,
                 colors=False,
@@ -16,9 +17,11 @@ def lysis_curve(csv,
     '''
     import pandas as pd
     import plotly.graph_objs as go
+    from plotly.subplots import make_subplots
 
     # Converts csv to Dataframe object
     data = pd.read_csv(csv)
+
     # Gets column names as list
     columns = list(data.columns)
 
@@ -42,10 +45,45 @@ def lysis_curve(csv,
             'rgb(23, 190, 207)',
             'rgb(36, 224, 165)']
 
-    if group:
+    if subplots:
+        fig = make_subplots(rows=3, cols=3,
+                            subplot_titles=columns[1:],
+                            # shared_xaxes=True,
+                            shared_yaxes=True,
+                            )
+
+        # positions order for adding the subplot traces to the figure
+
+        positions = [(1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (2, 3), (3, 1), (3, 2), (3, 3)]
+
+        for i, col in enumerate(columns[1:]):
+            fig.add_trace(go.Scatter(
+                x=data[columns[0]],
+                y=data[col],
+                name=col,
+                connectgaps=True,
+                marker_size=6,
+                line={'color': colors[i],
+                      'width': 2.5,
+                      },
+            ),
+                row=positions[i][0],
+                col=positions[i][1],
+            )
+        # Smaller text layout settings for subplots
+
+        fig.update_layout(font_size=10,
+                          title_font_size=16.5, )
+
+        # Sets subplot title font size. Plotly subplot titles are coded as annotations!
+        fig.update_annotations(font_size=10.5)
+
+
+    elif group:
         # This allows the user to color certain (related) line data the same color, but with different line markers
         # User should pass a list of groups as a str, separating each column by a comma as such:
         # ex: [ '1', '2|3', '4|5', '6|7', '8|9' ]
+
         groups = [x.split('|') for x in group]
 
         for i, grp in enumerate(groups):
@@ -66,6 +104,7 @@ def lysis_curve(csv,
                 )
     else:
         # Adds each column to the plot without grouping
+
         for i, col in enumerate(columns[1:]):
             fig.add_trace(go.Scatter(
                 x=data[columns[0]],
@@ -78,7 +117,9 @@ def lysis_curve(csv,
                       }
             )
             )
-            # Graph layout settings
+
+    # Graph layout settings for both standard and subplot graphs
+
     fig.update_layout(
         yaxis=dict(
             tickmode='array',
@@ -89,12 +130,11 @@ def lysis_curve(csv,
         height=square,
         # Font settings for axes and legend
         font_color="navy",
-        font_size=13.5,
         # Font settings for graph title
         title_font_color="navy",
     )
-    fig.update_yaxes(title_text='A550 (log)',
-                     type='log',
+
+    fig.update_yaxes(type='log',
                      ticks='inside',
                      showgrid=False,
                      linecolor='black',
@@ -114,9 +154,12 @@ def lysis_curve(csv,
                      range=[0, (data[columns[0]].max() + 0.1)],
                      constrain="domain",
                      )
+    if not subplots:
+        fig.update_layout(font_size=13.5, )
+        fig.update_yaxes(title_text='A550 (log)')
 
     # Adds annotations to the graph based on the user's input data
-    # (i.e. what chemical they used, and when it was added)
+
     if annotate:
         num_annotations: int = int(
             input(
@@ -141,9 +184,9 @@ def lysis_curve(csv,
         fig.update_layout(
             title={
                 'text': f'{title}',
-                'y': 0.90,
-                'x': 0.55,
-                'xanchor': 'right',
+                'y': 0.91,
+                'x': 0.44,
+                'xanchor': 'center',
                 'yanchor': 'top'})
     else:
         # Gets csv filename by indexing all but the last 4 characters, the ".csv" part
@@ -151,9 +194,9 @@ def lysis_curve(csv,
         fig.update_layout(
             title={
                 'text': f'{csv_name}',
-                'y': 0.9,
-                'x': 0.55,
-                'xanchor': 'right',
+                'y': 0.91,
+                'x': 0.44,
+                'xanchor': 'center',
                 'yanchor': 'top'})
 
     csv_name: str = csv[:-4]
