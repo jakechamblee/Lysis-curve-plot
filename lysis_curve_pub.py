@@ -2,7 +2,8 @@ def lysis_curve(csv,
                 annotate=False,
                 title=False,
                 group=False,
-                square=700,
+                subplots=False,
+                square=630,
                 legend=True,
                 colors=False,
                 png=False,
@@ -16,35 +17,43 @@ def lysis_curve(csv,
     '''
     import pandas as pd
     import plotly.graph_objs as go
+    from plotly.subplots import make_subplots
 
     # Converts csv to Dataframe object
     data = pd.read_csv(csv)
+    
     # Gets column names as list
     columns = list(data.columns)
 
     # Removes the background color
-    layout = go.Layout(plot_bgcolor='rgba(0,0,0,0)')
+    # layout = go.Layout(plot_bgcolor='rgba(0,0,0,0)')
 
     # Creates the plot
-    fig = go.Figure(layout=layout)
+    fig = go.Figure()
 
-    markers = ['square',
-               'circle',
-               'diamond-tall',
-               'star-square',
-               'hash',
-               'cross',
-               'x',
-               'diamond-wide',
-               'star']
-
+    
+    markers = [
+           'square',
+           'circle',
+           'diamond-tall',
+           'star-square',
+           'diamond-wide',
+           'star',
+           'hash',
+           'cross',
+           'x'
+                ]
     if colors:
         colors = colors
+        
     else:
         colors = [
+              'rgb(0, 0, 0)',        # black
+              'rgb(211, 211, 211)',  # grey
+              'rgb(19, 197, 89)',    # bright green
+              'rgb(0, 0, 255)',      # bright blue 
               'rgb(31, 119, 180)',   # blue
               'rgb(255, 127, 14)',   # orange
-              'rgb(44, 160, 44)',    # green
               'rgb(214, 39, 40)',    # red
               'rgb(227, 119, 194)',  # pink
               'rgb(127, 127, 127)',  # grey
@@ -52,10 +61,83 @@ def lysis_curve(csv,
               'rgb(23, 190, 207)',
               'rgb(36, 224, 165)']
 
-    if group:
+    if subplots:
+        fig = make_subplots(rows=3, cols=3, 
+                            subplot_titles=columns[1:],
+                            #shared_xaxes=True,
+                            shared_yaxes=True,
+                           )
+        
+        # positions order for adding the subplot traces to the figure
+        
+        positions = [(1,1), (1,2), (1,3), (2,1), (2,2), (2,3), (3,1), (3,2), (3,3)]
+        
+        for i, col in enumerate(columns[1:]):
+            fig.add_trace(go.Scatter(
+                x=data[columns[0]],
+                y=data[col],
+                name=col,
+                connectgaps=True,
+                marker_symbol=markers[i],
+                marker_size=10,
+                marker_opacity=0.9,
+                marker_line_width=2,
+                marker_line_color='black',
+                line={'color': colors[i],
+                      'width': 5,
+                      }
+            ),
+                row=positions[i][0],
+                col=positions[i][1],    
+                        )
+            
+        # Smaller text layout settings for subplots
+        fig.update_layout(
+            font_size=9,
+            title_font_size=16.5,)
+        
+        # Sets subplot title font size. Plotly subplot titles are coded as annotations!
+        fig.update_annotations(font_size=9)
+        fig.update_layout(font_size=10.5,)
+        
+        # Subplot axes settings
+        fig.update_yaxes(
+             #title_text='A550',
+             type='log',
+             ticks='inside',
+             showgrid=False,
+             linecolor='black',
+             zeroline=False,
+             tickwidth=2,
+             tickcolor='black',
+             linewidth=2,
+             mirror=True,
+             range=[-2, 1]
+             )
+        fig.update_xaxes(
+             title_text='Time (min)',
+             showgrid=False,
+             linecolor='black',
+             zeroline=False,
+             ticks='inside',
+             tick0=0,   # Starting point for first tick
+             dtick=20,  # Interval for each tick
+             tickwidth=2,
+             tickcolor='black',
+             linewidth=2,
+             mirror=True,
+             # Sets range of the x-axis +0.1 b/c the graph border was cutting off markers
+             range=[0, (data[columns[0]].max() + 0.1)],
+             constrain="domain",
+             )
+
+
+        
+    elif group:
         # This allows the user to color certain (related) line data the same color, but with different line markers
         # User should pass a list of groups as a str, separating each column by a comma as such:
         # ex: [ '1', '2|3', '4|5', '6|7', '8|9' ]
+        
         groups = [x.split('|') for x in group]
 
         for i, grp in enumerate(groups):
@@ -70,17 +152,19 @@ def lysis_curve(csv,
                     name=columns[int(col)],
                     connectgaps=True,
                     marker_symbol=group_marker + marker_variant[k],
-                    marker_size=12,
+                    marker_size=20,
                     marker_opacity=0.9,
                     marker_line_width=2,
+                    marker_line_color='black',
                     line={'color': group_color,
-                          'width': 0.6,
+                          'width': 5,
                           'dash': linemarkers[k]
                           }
                 )
                 )
     else:
         # Adds each column to the plot without grouping
+        
         for i, col in enumerate(columns[1:]):
             fig.add_trace(go.Scatter(
                 x=data[columns[0]],
@@ -88,58 +172,66 @@ def lysis_curve(csv,
                 name=col,
                 connectgaps=True,
                 marker_symbol=markers[i],
-                marker_size=12,
+                marker_size=20,
                 marker_opacity=0.9,
                 marker_line_width=2,
+                marker_line_color='black',
                 line={'color': colors[i],
-                      'width': 0.6,
+                      'width': 5,
                       }
-            )
-            )
-            # Graph layout settings
+                                    )
+                        )
+    
+    # Graph layout settings for both standard and subplot graphs
+    
     fig.update_layout(
         yaxis=dict(
             tickmode='array',
-            tickvals=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09,
-                      0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
-                      1.0, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            ticktext=[0.01, '', '', '', '', '', '', '', '',
-                      0.1, '', '', '', '', '', '', '', '',
-                      1.0, '', '', '', '', '', '', '', '',
-                      10]
-        ),
+            tickvals=[0.01, 0.1, 1.0, 10],
+            ticktext=[0.01, 0.1, 1.0, 10]
+                  ),
+        width=square + 75,  # corrects for legend width
+        height=square,
         # Font settings for axes and legend
-        font_family="Helvetica",
         font_color="navy",
-        font_size=13,
         # Font settings for graph title
-        title_font_family="Helvetica",
         title_font_color="navy",
-    )
-    fig.update_yaxes(title_text='A550 (log)',
-                     type='log',
-                     ticks='inside',
-                     showgrid=False,
-                     linecolor='black',
-                     zeroline=False,
-                     mirror=True,
-                     range=[-2, 1]
-                     )
-    fig.update_xaxes(title_text='Time (min)',
-                     showgrid=False,
-                     linecolor='black',
-                     zeroline=False,
-                     ticks='inside',
-                     tick0=0,   # Starting point for first tick
-                     dtick=20,  # Interval for each tick
-                     mirror=True,
-                     # Sets range of the x-axis +0.1 b/c the graph border was cutting off markers
-                     range=[0, (data[columns[0]].max() + 0.1)],
-                     constrain="domain",
-                     )
+                    )
+        
+    if not subplots:
+        fig.update_layout(font_size=10.5,)
+        fig.update_yaxes(
+            title_text='A550',
+                         type='log',
+                         ticks='inside',
+                         showgrid=False,
+                         linecolor='black',
+                         zeroline=False,
+                         tickwidth=5,
+                         tickcolor='black',
+                         linewidth=5,
+                         mirror=True,
+                         range=[-2, 1]
+                         )
+        fig.update_xaxes(
+            title_text='Time (min)',
+                         showgrid=False,
+                         linecolor='black',
+                         zeroline=False,
+                         ticks='inside',
+                         tick0=0,   # Starting point for first tick
+                         dtick=20,  # Interval for each tick
+                         tickwidth=5,
+                         tickcolor='black',
+                         linewidth=5,
+                         mirror=True,
+                         # Sets range of the x-axis +0.1 b/c the graph border was cutting off markers
+                         range=[0, (data[columns[0]].max() + 0.1)],
+                         constrain="domain",
+                         )
 
     # Adds annotations to the graph based on the user's input data
-    # (i.e. what chemical they used, and when it was added)
+    
     if annotate:
         num_annotations: int = int(
             input(
@@ -157,14 +249,15 @@ def lysis_curve(csv,
 
     if not legend:
         fig.update_layout(showlegend=False)
+        fig.update_layout(width=square)
 
     # Gives user the option to enter a custom graph title. By default, uses the filename
     if title:
         fig.update_layout(
             title={
                 'text': f'{title}',
-                'y': 0.9,
-                'x': 0.5,
+                'y': 0.91,
+                'x': 0.44,
                 'xanchor': 'center',
                 'yanchor': 'top'})
     else:
@@ -173,8 +266,8 @@ def lysis_curve(csv,
         fig.update_layout(
             title={
                 'text': f'{csv_name}',
-                'y': 0.9,
-                'x': 0.5,
+                'y': 0.91,
+                'x': 0.44,
                 'xanchor': 'center',
                 'yanchor': 'top'})
 
@@ -189,13 +282,13 @@ def lysis_curve(csv,
         fig.update_layout(width=square)  # b/c by default width is +75 to somewhat correct for legend width
         fig.write_image(f"{csv_name}_no_legend.svg")
         return fig.show()
-
     if png:
         # Saves the graph as a png in the current directory
+        fig.show()
         return fig.write_image(f"{csv_name}.png")
     elif svg:
-        # +75 in width corrects for the width of the legend
-        return fig.write_image(f"{csv_name}.svg", width=square+75, height=square)
+        fig.show()
+        return fig.write_image(f"{csv_name}.svg")
     else:
         # Shows the graph (for jupyter or a web page)
         return fig.show()
