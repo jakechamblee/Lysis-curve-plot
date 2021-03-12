@@ -68,7 +68,7 @@ def lysis_curve(csv,
                             shared_yaxes=True,
                            )
         
-        # positions order for adding the subplot traces to the figure
+        # Order for adding the subplot traces to the figure
         
         positions = [(1,1), (1,2), (1,3), (2,1), (2,2), (2,3), (3,1), (3,2), (3,3)]
         
