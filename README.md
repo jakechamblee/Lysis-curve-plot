@@ -5,7 +5,7 @@ It can also split a spaghetti lineplot into up to 9 subplots.
 
 # lysis_curve_pub.py
 
-This variant generates automated OD curves with modifications that may make them more suitable for publication. Dynamic interaction with the plots is buggy due to an issue on Plotly's end.
+This variant generates automated OD curves with modifications with a more professional (less Plotly) styling more suitable for publication. Dynamic interaction with the plots is sometimes buggy due to an issue on Plotly's end.
 
 ### Running in Jupyter
 
