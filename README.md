@@ -1,7 +1,7 @@
-# lysis_curve.py
+# lysis_curve.py (deprecated)
 
 This function generates automated lysis curves (OD curves) for bacteriophage research via plotly.
-It can also split a spaghetti lineplot into up to 9 subplots.
+It can also split a spaghetti lineplot into up to 9 subplots. 
 
 # lysis_curve_pub.py
 
