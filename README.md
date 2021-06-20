@@ -42,7 +42,7 @@ This argument is useful if you wish to visually group your data by color.
 It automatically sets each line in each group the same color, 
 but assigns them different markers.
 *Does not work with subplots.*
-Pass the argument to `group` as a list of strings, with each column in a group separated by vertical bars.
+Pass the argument `group` as a list of strings, with each column in a group separated by vertical bars.
 ```python
 lysis_curve('122120JSC.csv',
            title='Title Goes Here',
