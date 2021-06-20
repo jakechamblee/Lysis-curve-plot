@@ -5,7 +5,7 @@ biological research via **Plotly** and utilizes code for automated grouping, tit
 
 Simply changing the function arguments can generate a variety of bacterial growth curves.
 
-**The graphs are dynamic** when generated in a webpage (i.e. **Jupyter**) which can be useful when teasing apart data.
+**The graphs are dynamic** when generated within a webpage (i.e. **Jupyter**) which can be useful when teasing apart data.
 
 For a very similar package which generates non-dynamic but prettier bacterial growth curves / lysis curves using **R** rather than **Python**, see [Cody Martin's lysis_curves package.](https://github.com/cody-mar10/lysis_curves)
 
