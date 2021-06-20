@@ -32,8 +32,6 @@ Alternatively, copy/paste the file into a jupyter cell from github
 and you can modify the code yourself.
 #### Generate basic plot
 ```python
-from lysis_curve import lysis_curve
-
 lysis_curve('yourcsvfile.csv')
 ```
 ![basic plot](media/basic_example_plot.png)
