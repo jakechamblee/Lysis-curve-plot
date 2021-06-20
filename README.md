@@ -17,7 +17,9 @@ pip install lysis-curve
 
 ### Running (in Jupyter or at command line)
 
-First, make sure your x-axis (time) data is your **zeroth (first) column** (this script always plots the first column in the csv file as the x-axis). Next, make sure you save your data in the .csv file format. Finally, navigate to the directory containing your .csv file in Jupyter.
+First, make sure your x-axis (time) data is your **zeroth (first) column** (this script always plots the first column in the csv file as the x-axis). Next, **make sure you save your data in the .csv file format.**
+
+Next, navigate to the directory containing your .csv file in Jupyter.
 ```python
 import os
 os.chdir('your_path_here')
