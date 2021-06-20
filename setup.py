@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="lysis_curve",                     # Package name
-    version="0.0.2",                        # The initial release version
+    version="0.1",                        # The initial release version
     author="Jake Chamblee",
     author_email='jchamblee1995@gmail.com',
     description="Lysis curve package",
