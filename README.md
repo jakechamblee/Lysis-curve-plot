@@ -1,7 +1,7 @@
 # Lysis-curve
 
 This package generates automated lysis curves (bacterial growth curves) for 
-biological research via **Plotly** and utilizes code for automated grouping, titles, annotations and subplotting within a single custom graphing function. 
+biological research via **Plotly** and uses code to generate automated grouping, titles, annotations and subplotting within a single custom graphing function. 
 
 Simply changing the function arguments can generate a variety of bacterial growth curves.
 
@@ -9,7 +9,7 @@ Simply changing the function arguments can generate a variety of bacterial growt
 
 For a very similar package which generates non-dynamic but prettier bacterial growth curves / lysis curves using **R** rather than **Python**, see [Cody Martin's lysis_curves package.](https://github.com/cody-mar10/lysis_curves)
 
-### Install Package Using [PyPi](https://pypi.org/project/lysis-curve/)
+### Install Package Using [Pip](https://pypi.org/project/lysis-curve/)
 At the command line, run
 ```Bash
 pip install lysis-curve
