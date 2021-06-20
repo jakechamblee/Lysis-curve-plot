@@ -24,7 +24,7 @@ Next, navigate to the directory containing your .csv file (in the terminal, or i
 import os
 os.chdir('your_path_here')
 ```
-Next, import the lysis_curve.py file using 
+Next, import the lysis_curve() function using 
 ```python
 from lysis_curve import lysis_curve
 ```
