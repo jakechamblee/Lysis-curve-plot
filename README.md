@@ -1,7 +1,7 @@
-# lysis_curve.py
+# Lysis-curve
 
 This package generates automated lysis curves (bacterial growth curves) for 
-biological research via **Plotly** and utilizes custom code for automated grouping, titles, annotations and subplotting within a single graphing function. 
+biological research via **Plotly** and utilizes code for automated grouping, titles, annotations and subplotting within a single custom graphing function. 
 
 Simply changing the function arguments can generate a variety of bacterial growth curves.
 
