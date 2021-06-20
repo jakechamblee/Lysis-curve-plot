@@ -1,23 +1,33 @@
-# lysis_curve.py (deprecated)
+# lysis_curve.py
 
-This function generates automated lysis curves (OD curves) for bacteriophage research via plotly.
-It can also split a spaghetti lineplot into up to 9 subplots. 
+This function generates automated lysis curves (bacterial growth curves) for 
+biological research via plotly.
+It can also split a lineplot into up to 9 subplots.
 
-# lysis_curve_pub.py
+### Install Package Using PyPi
+At the command line, run
+```Bash
+pip install lysis-curve
+```
 
-This variant generates automated OD curves with modifications with a more professional (less Plotly) styling more suitable for publication. Dynamic interaction with the plots is sometimes buggy due to an issue on Plotly's end.
-
-### Running in Jupyter
+### Running (in Jupyter or at command line)
 
 First, make sure your x-axis (time) data is your **zeroth (first) column** (this script always plots the first column in the csv file as the x-axis). Next, make sure you save your data in the .csv file format. Finally, navigate to the directory containing your .csv file in Jupyter.
 ```python
 import os
 os.chdir('your_path_here')
 ```
-Next, import the lysis_curve.py file or just copy/paste it into a jupyter cell and execute.
+Next, import the lysis_curve.py file using 
+```python
+from lysis_curve import lysis_curve
+```
+Alternatively, copy/paste the file into a jupyter cell from github
+and you can modify the code yourself.
 #### Generate basic plot
 This basic plot is good for cases where you do not wish to visually group your data
 ```python
+from lysis_curve import lysis_curve
+
 lysis_curve('yourcsvfile.csv')
 ```
 #### Generate plot with subplots
