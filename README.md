@@ -45,7 +45,6 @@ but assigns them different markers.
 Pass the argument `group` as a list of strings, with each column in a group separated by vertical bars.
 ```python
 lysis_curve('122120JSC.csv',
-           title='Title Goes Here',
            group = ['1', '4','3|5'],
            annotate=True)
 ```
@@ -59,7 +58,6 @@ Use the argument ```subplots=True``` to split your data into subplots.
 
 ```Python
 lysis_curve('051321JSC.csv',
-           title='Title Goes Here',
            subplots=True)
 ```
 ![basic_plot_with_subplots](media/example_plot_with_subplots.png)
