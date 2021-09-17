@@ -35,7 +35,7 @@ and you can modify the code yourself.
 ```python
 lysis_curve('yourcsvfile.csv')
 ```
-![basic plot](media/basic_example_plot.png)
+![basic plot](media/basicplot.png)
 
 
 #### Generate plot with grouping
@@ -61,7 +61,7 @@ Use the argument ```subplots=True``` to split your data into subplots.
 lysis_curve('051321JSC.csv',
            subplots=True)
 ```
-![basic_plot_with_subplots](media/example_plot_with_subplots.png)
+![basic_plot_with_subplots](media/basicsubplot.png)
 #### Generate plot with custom title
 Use the argument ```title='Your Custom Title Here'```
 By default, the title will be taken from your csv file name - thus 'yourcsvfile' if 'yourcsvfile.csv' is passed.
