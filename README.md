@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/301024313.svg)](https://zenodo.org/badge/latestdoi/301024313)
 # Lysis-curve
 
 This package generates automated lysis curves (bacterial growth curves) for 
