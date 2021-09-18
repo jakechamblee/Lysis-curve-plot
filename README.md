@@ -54,7 +54,7 @@ lysis_curve('122120JSC.csv',
 ![basic_plot_with_grouping](media/example_plot_with_grouping_and_annotation.png)
 
 #### Generate plot with annotations
-Use the argument ```annotations=True``` and follow the prompts. Useful for adding simple annotations at a specific timepoint.
+Use the argument ```annotate=True``` and follow the prompts. Useful for adding simple annotations at a specific timepoint.
 
 #### Generate plot with subplots
 Use the argument ```subplots=True``` to split your data into subplots. *Does not work with grouping.*
