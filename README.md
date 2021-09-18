@@ -2,9 +2,10 @@
 # Lysis-curve
 
 This package generates automated lysis curves (bacterial growth curves) for 
-biological research via **Plotly** and uses code to generate automated grouping, titles, annotations and subplotting within a single custom graphing function. 
+biological research via **Plotly** and uses code to generate automated grouping, titles, annotations and subplotting within a single custom graphing function. Simply changing the function arguments can generate a variety of bacterial growth curves.
 
-Simply changing the function arguments can generate a variety of bacterial growth curves.
+
+This makes generating growth/lysis curves as simple and quick as possible, even for people with minimal programming skills.
 
 **The graphs are dynamic** when generated within a webpage (e.g. **Jupyter**) which can be useful when teasing apart data.
 
@@ -71,6 +72,7 @@ By default, the title will be taken from your csv file name - thus 'yourcsvfile'
 ```python
 lysis_curve('yourcsvfile.csv', colors=['red', 'blue', 'blah'])
 ```
+You should be able to pass any color to ```colors``` that you can find in this [link](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).
 
 #### Save as .png
 Set the argument ```png=True``` and the function will generate a .png file of the graph in your current directory.
