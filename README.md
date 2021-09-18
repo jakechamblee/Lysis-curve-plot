@@ -43,8 +43,8 @@ lysis_curve('yourcsvfile.csv')
 #### Generate plot with grouping
 This argument is useful if you wish to visually group your data by color. 
 It automatically sets each line in each group the same color, 
-but assigns them different markers.
-*Does not work with subplots.*
+but assigns them a variation of the same marker, plus different line markers (solid line, dashed line, dash-dot line). 
+**Maximum of 3 per group.**
 Pass the argument `group` as a list of strings, with each column in a group separated by vertical bars.
 ```python
 lysis_curve('122120JSC.csv',
@@ -54,10 +54,10 @@ lysis_curve('122120JSC.csv',
 ![basic_plot_with_grouping](media/example_plot_with_grouping_and_annotation.png)
 
 #### Generate plot with annotations
-Use the argument ```annotations=True``` and follow the prompts.
+Use the argument ```annotations=True``` and follow the prompts. Useful for adding simple annotations at a specific timepoint.
 
 #### Generate plot with subplots
-Use the argument ```subplots=True``` to split your data into subplots.
+Use the argument ```subplots=True``` to split your data into subplots. *Does not work with grouping.*
 
 ```Python
 lysis_curve('051321JSC.csv',
