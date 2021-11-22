@@ -1,4 +1,4 @@
-def lysis_curve(csv,
+def lysis_curve_pub(csv,
                 annotate=False,
                 title=False,
                 group=False,
@@ -11,7 +11,6 @@ def lysis_curve(csv,
                 save=False):
     """
     Return a lysis curve line graph
-
     *This function always assumes your first column is your time column (x-axis).*
     *Your x-axis data must also be ints not strings for annotations *
     """
@@ -26,13 +25,11 @@ def lysis_curve(csv,
     global columns
     columns = list(data.columns)
 
-    # Removes the background color
-    # layout = go.Layout(plot_bgcolor='rgba(0,0,0,0)')
-
     # Creates the plot
     global fig
     fig = go.Figure()
-
+    
+    
     global markers
     markers = [
         'square',
@@ -52,16 +49,18 @@ def lysis_curve(csv,
 
     else:
         base_colors = [
+            'rgb(211, 211, 211)',  #gray
             'rgb(0, 0, 0)',  # black
-            'rgb(211, 211, 211)',  # grey
             'rgb(19, 197, 89)',  # bright green
+            'rgb(255, 42, 42)',  # red
             'rgb(0, 0, 255)',  # bright blue
             'rgb(31, 119, 180)',  # blue
             'rgb(255, 127, 14)',  # orange
-            'rgb(214, 39, 40)',  # red
+
             'rgb(227, 119, 194)',  # pink
             'rgb(127, 127, 127)',  # grey
             'rgb(188, 189, 34)',  # mustard
+            'rgb(0, 0, 0)',  # black
             'rgb(23, 190, 207)',
             'rgb(36, 224, 165)']
 
@@ -149,18 +148,42 @@ def lysis_curve(csv,
     fig.update_layout(
         yaxis=dict(
             tickmode='array',
-            tickvals=[0.01, 0.1, 1.0, 10],
-            ticktext=[0.01, 0.1, 1.0, 10]
+            # At what value the ticks are placed on the axis
+            tickvals = [0.01, 0.1, 1.0, 10],
+            ticktext = [0.01, 0.1, 1.0, 10],
+            #tickvals=[0.01, 
+            #          0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
+            #          1.0,
+            #          10],
+            #ticktext=[0.01, 
+            #          0.1, '', '', '', '', '', '', '', '', # empty strings so it doesn't label each tick
+            #          1.0,
+            #          10]
+            
+            # Having all the ticks shown makes this function VERY slow for some reason.
+            #tickvals=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 
+            #          0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
+            #          1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0,
+            #          10],
+            #ticktext=[0.01, '', '', '', '', '', '', '', '',
+            #          0.1, '', '', '', '', '', '', '', '',
+            #         1.0, '', '', '', '', '', '', '', '',
+            #          10, '', '', '', '', '', '', '', '',
+            #         ]
         ),
         width=square + 75,  # corrects for legend width
         height=square,
         # Font settings for axes and legend
-        font_color="navy",
+        font_family="Helvetica",
+        font_color="black",
+        font_size=48,
         # Font settings for graph title
-        title_font_color="navy",
+        title_font_color="black",
+        # Removes plot background color
+        plot_bgcolor='rgba(0,0,0,0)', 
     )
     if not subplots:
-        fig.update_layout(font_size=10.5, )
+        fig.update_layout(font_size=24, )
         fig.update_yaxes(
             title_text='A550',
             type='log',
@@ -242,19 +265,17 @@ def lysis_curve(csv,
 def make_custom_subplots(data, columns, markers):
     """
     Split line graph into 3x3 subplots.
-
     Subplots are not intended to be compatible with grouping.
     """
 
 
 def make_groups(markers, columns):
     """Match traces such that they have the same color, but different line markers.
-
     User should pass a list of groups as a str, separating each column by a comma as such:
     ex: [ '1', '2|3', '4|5', '6|7', '8|9' ]
     """
     import plotly.graph_objs as go
-
+    
     groups_ = [x.split('|') for x in groups]
 
     for i, grp in enumerate(groups_):
