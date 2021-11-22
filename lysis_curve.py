@@ -1,4 +1,4 @@
-def lysis_curve_pub(csv,
+def lysis_curve(csv,
                 annotate=False,
                 title=False,
                 group=False,
@@ -149,27 +149,18 @@ def lysis_curve_pub(csv,
         yaxis=dict(
             tickmode='array',
             # At what value the ticks are placed on the axis
-            tickvals = [0.01, 0.1, 1.0, 10],
-            ticktext = [0.01, 0.1, 1.0, 10],
-            #tickvals=[0.01, 
-            #          0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
-            #          1.0,
-            #          10],
-            #ticktext=[0.01, 
-            #          0.1, '', '', '', '', '', '', '', '', # empty strings so it doesn't label each tick
-            #          1.0,
-            #          10]
-            
-            # Having all the ticks shown makes this function VERY slow for some reason.
-            #tickvals=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 
-            #          0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
-            #          1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0,
-            #          10],
-            #ticktext=[0.01, '', '', '', '', '', '', '', '',
-            #          0.1, '', '', '', '', '', '', '', '',
-            #         1.0, '', '', '', '', '', '', '', '',
-            #          10, '', '', '', '', '', '', '', '',
-            #         ]
+            # In this version of the script, showing intermediate y-axis ticks
+            # NOTE: Having all the ticks as '' makes this function VERY slow and buggy for some reason.
+            # MUST use ' ' instead. Weird Plotly bug.
+            tickvals=[0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 
+                     0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,
+                     1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0,
+                     10],
+            ticktext=[0.01, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', # empty strings so it doesn't label each tick
+                     0.1, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+                    1.0, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+                     10, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+                    ]
         ),
         width=square + 75,  # corrects for legend width
         height=square,
