@@ -37,7 +37,7 @@ and you can modify the code yourself.
 ```python
 lysis_curve('yourcsvfile.csv')
 ```
-![basic plot](media/basicplot.png)
+![basic plot](media/newplot(11).png)
 
 
 #### Generate plot with grouping
@@ -51,7 +51,7 @@ lysis_curve('122120JSC.csv',
            group = ['1', '4','3|5'],
            annotate=True)
 ```
-![basic_plot_with_grouping](media/example_plot_with_grouping_and_annotation.png)
+![basic_plot_with_grouping](media/basic_plot_with_grouping.png)
 
 #### Generate plot with annotations
 Use the argument ```annotate=True``` and follow the prompts. Useful for adding simple annotations at a specific timepoint.
