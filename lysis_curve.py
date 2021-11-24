@@ -239,7 +239,8 @@ def lysis_curve(csv,
         fig.write_image(f"{csv_name}.png")
         fig.update_layout(showlegend=False)
         fig.update_layout(width=square)  # b/c by default width is +75 to somewhat correct for legend width
-        fig.write_image(f"{csv_name}_no_legend.svg")
+        make_plot_square()
+        fig.write_image(f"{csv_name}_square.svg")
         return fig.show()
     if png:
         # Saves the graph as a png in the current directory
@@ -331,4 +332,31 @@ def make_base_case_plot(base_colors, columns):
                   'width': 5,
                   }
         )
+        )
+def make_plot_square():
+    fig.update_layout(margin=dict(
+        b=0,
+        l=0,
+        r=0,
+        t=0,
+        #autoexpand=False,
+        #autosize=False
+        #scaleanchor = 'x',
+        #scaleratio = 1,
+    ))
+    fig.update_xaxes(
+    title_text='',
+    showticklabels=False,
+    )
+    fig.update_yaxes(
+    title_text='',
+    showticklabels=False
+    )
+    fig.update_layout(
+        title={
+            'text': '',
+            'y': 0.91,
+            'x': 0.44,
+            'xanchor': 'center',
+            'yanchor': 'top'}
         )
